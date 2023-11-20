@@ -1,0 +1,4 @@
+*.log
+logs/
+temp/
+db.sqlite3

@@ -1,0 +1,52 @@
+name: CI/CD for django-blog
+
+on:
+  workflow_dispatch:
+    inputs:
+        ec2_ip:
+          description: 'EC2 instance IP'
+          required: true
+          default: '51.20.134.34'
+env:
+  AWS_REGION: eu-north-1
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Configure SSH
+        env:
+          SSH_HOST: ${{ github.event.inputs.ec2_ip }}
+          SSH_USER: ec2-user
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >>~/.ssh/config <<END
+          Host ec2
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
+      - name: Deploy
+        run: |
+          ssh ec2 'sudo docker-compose -f /home/ec2-user/dtt/docker-compose.yml stop 2>/dev/null'
+          echo 'Stopped docker-compose'
+          ssh ec2 'rm -rf /home/ec2-user/dtt'
+          echo 'Old project dir removed'
+          ssh ec2 'mkdir dtt && chmod -R o+w dtt'
+          scp -r $(pwd)/* ec2:/home/ec2-user/dtt
+          echo 'Current code copied'
+          ssh ec2 'echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > /home/ec2-user/.env'
+          ssh ec2 'echo "ALLOWED_HOSTS=${{ github.event.inputs.ec2_ip }}" >> /home/ec2-user/.env'
+          ssh ec2 'sudo docker-compose -f /home/ec2-user/django-blog/docker-compose.yml up -d --build'
+          echo 'Containers restarted'
+          ssh ec2 'rm /home/ec2-usr/.env'
+          echo '.env file removed'
+          echo 'Done!'

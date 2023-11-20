@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: dtt-image
+    container_name: dtt-cont
+    command: gunicorn dtt.wsgi:application --bind 0.0.0.0:8080
+    expose:
+      - 8080
+    env_file:
+      - ../.env
+    networks:
+      - app-network
+#    restart: always
+    volumes:
+      - /home/ec2-user/db:/home/app/db
+      - /home/ec2-user/static:/home/app/static
+      - /home/ec2-user/media:/home/app/media
+  nginx:
+    image: nginx:latest
+    volumes:
+      - /home/ec2-user/dtt/nginx.conf:/etc/nginx/nginx.conf
+      - /home/ec2-user/static:/files_static
+      - /home/ec2-user/media:/files_media
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+      - app-network
+networks:
+  app-network:
