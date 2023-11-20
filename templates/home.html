@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>Home</h1>
+    <p> Welcome to our site! Familiarize yourself with our useful services:</p>
+    <h2>Blog</h2>
+    <p>Read our <a href="{% url 'blog-home' %}">latest posts!</a></p>
+{% endblock %}

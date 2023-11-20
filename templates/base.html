@@ -5,6 +5,7 @@
     <title>{% block title %}Django Test Task{% endblock %}</title>
 </head>
 <body>
+<p><a href="/">Home</a> | <a href="{% url 'blog-home' %}">Blog</a></p>
 {% block content %}{% endblock %}
 
 </body>
