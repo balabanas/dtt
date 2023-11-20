@@ -21,7 +21,10 @@ class Article(models.Model):
         return self.title
 
     def snippet(self) -> str:
-        return self.content[:50] + '...'
+        try:  # will have issue if content is NULL
+            return self.content[:50] + '...'
+        except TypeError:
+            return "(empty yet)"
 
     def save(self, *args, **kwargs) -> None:
         if not self.slug:
