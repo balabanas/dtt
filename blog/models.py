@@ -29,3 +29,13 @@ class Article(models.Model):
         while Article.objects.filter(slug=self.slug).exclude(id=self.id).exists():
             self.slug += "-"  # altering slug until it is unique
         super().save(*args, **kwargs)
+
+
+class ContactRequest(models.Model):
+    name = models.CharField(max_length=100, blank=False, validators=[validate_charfield_not_empty])
+    email = models.EmailField(blank=False)
+    content = models.TextField(blank=False, validators=[validate_charfield_not_empty])
+    pub_dttm = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.name + " " + self.pub_dttm.strftime("%Y-%m-%d %H:%M:%S")
