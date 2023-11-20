@@ -47,6 +47,6 @@ jobs:
           ssh ec2 'echo "ALLOWED_HOSTS=${{ github.event.inputs.ec2_ip }}" >> /home/ec2-user/.env'
           ssh ec2 'sudo docker-compose -f /home/ec2-user/dtt/docker-compose.yml up -d --build'
           echo 'Containers restarted'
-          ssh ec2 'rm /home/ec2-usr/.env'
+          ssh ec2 'rm /home/ec2-user/.env'
           echo '.env file removed'
           echo 'Done!'
