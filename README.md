@@ -1,5 +1,6 @@
 # dtt
 Django Test Task
+
 Repo created: 2023-11-20
 
 ## Requirements
