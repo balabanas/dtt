@@ -4,6 +4,6 @@
 
 {% block content %}
     <h1>{{ article.title }}</h1>
-    <p>{{ article.author }} | {{ article.pub_dttm }}</p>
+    <p>{{ article.author.get_full_name|default:article.author.username }} | {{ article.pub_dttm }}</p>
     <p>{{ article.content }}</p>
 {% endblock %}
