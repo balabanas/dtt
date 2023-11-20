@@ -23,6 +23,11 @@ class TestArticleListView(TestCase):
         self.assertContains(response, 'test content...')
         self.assertContains(response, self.user.username)
 
+    def test_article_list_view_offline(self):
+        response = self.client.get(reverse('blog-home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, 'Offline test title')
+
 
 class ArticlePaginationTestCase(TestCase):
     def setUp(self):

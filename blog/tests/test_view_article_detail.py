@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.test import TestCase
+from django.urls import reverse
 
 from blog.models import Article
 
@@ -20,3 +21,7 @@ class TestArticleDetailView(TestCase):
         self.assertContains(response, 'Online test title')
         self.assertContains(response, 'test content')
         self.assertContains(response, self.user.username)
+
+    def test_article_detail_view_offline(self):
+        response = self.client.get(reverse('article-detail', kwargs={'id': self.aoff.id, 'slug': self.aoff.slug}))
+        self.assertEqual(response.status_code, 404)
