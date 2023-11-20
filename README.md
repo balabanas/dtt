@@ -23,3 +23,8 @@ Repo created: 2023-11-20
 * git
 * Project should be hosted somewhere, admin is reachable
 * Design is not a priority
+
+## Decisions made
+* Django 4.2 as relatively new LTS version (till April 2026)
+* Python 3.10 - relatively fresh, supported by Django 4.2 with similar EOL (October 2026)
+* coverage 7.3.2, to estimate unit test coverage in PyCharm
