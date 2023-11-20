@@ -53,7 +53,4 @@ jobs:
           ssh ec2 'echo "DEFAULT_TO_EMAIL=${{ secrets.DEFAULT_TO_EMAIL }}" >> /home/ec2-user/.env'
           
           ssh ec2 'sudo docker-compose -f /home/ec2-user/dtt/docker-compose.yml up -d --build'
-          echo 'Containers restarted'
-          ssh ec2 'rm /home/ec2-user/.env'
-          echo '.env file removed'
-          echo 'Done!'
+          echo 'Containers restarted. Done!'
