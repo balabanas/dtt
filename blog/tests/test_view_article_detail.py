@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.template.response import TemplateResponse
 from django.test import TestCase
 from django.urls import reverse
 
@@ -15,13 +15,15 @@ class TestArticleDetailView(TestCase):
                                                    author=self.user)
 
     def test_article_detail_view_online(self) -> None:
-        response: HttpResponse = self.client.get(f'/blog/{self.aon.id}-{self.aon.slug}/')
+        response: TemplateResponse = self.client.get(
+            reverse('article-detail', kwargs={'id': self.aon.id, 'slug': self.aon.slug}))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'blog/article_detail.html')
         self.assertContains(response, 'Online test title')
         self.assertContains(response, 'test content')
         self.assertContains(response, self.user.username)
 
-    def test_article_detail_view_offline(self):
-        response = self.client.get(reverse('article-detail', kwargs={'id': self.aoff.id, 'slug': self.aoff.slug}))
+    def test_article_detail_view_offline(self) -> None:
+        response: TemplateResponse = self.client.get(
+            reverse('article-detail', kwargs={'id': self.aoff.id, 'slug': self.aoff.slug}))
         self.assertEqual(response.status_code, 404)
