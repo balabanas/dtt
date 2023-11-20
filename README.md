@@ -36,3 +36,5 @@ Repo created: 2023-11-20
 * GitHub Actions are used for CI/CD, with 2 workflows: one for testing, another for deployment to AWS
 * Secrets are managed with GitHub Secrets, and are used in GitHub Actions workflows
 * Secrets are passed to the app with environment variables, and are used in settings.py
+* CI pipeline triggers automatically on push/pull request to main branch
+* CD pipeline triggered manually and required to provide EC2 instance public IP address as a parameter
