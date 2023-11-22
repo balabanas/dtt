@@ -19,6 +19,11 @@ class ContactFormViewTest(TestCase):
             'content': 'Test message',
         }
 
+    def test_contact_form_view_get(self) -> None:
+        response: HttpResponseRedirect = self.client.get(reverse('contact-form'))
+        self.assertTemplateUsed(response, 'blog/contactrequest_form.html')
+        self.assertEqual(response.status_code, 200)
+
     def test_contact_form_view_form_sent(self) -> None:
         response: HttpResponseRedirect = self.client.post(reverse('contact-form'), self.form_data)
         self.assertEqual(response.status_code, 302)
