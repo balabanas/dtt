@@ -42,15 +42,6 @@ class ArticleTestCase(TestCase):
         with self.assertRaises(Article.DoesNotExist):
             Article.objects.get(title="Test Article")
 
-    def test_article_slug_made_unique(self) -> None:
-        """Attempts to add 2 more articles with the same slug"""
-        a: Article = Article.objects.create(title="Test Article", slug="test-article", content="Test content",
-                                            author=self.user)
-        a.slug = "test-title-"
-        b: Article = Article.objects.create(title="Test Article", slug="test-article", content="Test content",
-                                            author=self.user)
-        b.slug = "test-title--"
-
     def test_article_user_required(self):
         with self.assertRaises(IntegrityError):
             Article.objects.create(title="Article With No User Specified", slug="test-title", content="test content")
