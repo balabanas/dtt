@@ -21,7 +21,7 @@ class ArticleTestCase(TestCase):
         self.assertEqual(a.author.username, self.user.username)
         self.assertFalse(a.online)
         self.assertEqual(a.__str__(), "Test Article")
-        self.assertEqual(a.snippet(), "Test content...")
+        self.assertEqual(a.snippet, "Test content...")
 
     def test_article_update(self) -> None:
         a: Article = Article.objects.get(title="Test Article")
@@ -74,3 +74,8 @@ class ArticleTestCase(TestCase):
         a: Article = Article.objects.create(title="Later Article", slug="test-title", content="test content",
                                             author=self.user)
         self.assertGreater(a.pub_dttm, self.a.pub_dttm)
+
+    def test_article_content_empty(self) -> None:
+        article: Article = Article.objects.create(title="Article w Empty Content", slug="article-w-empty-content",
+                                                  author=self.user)
+        self.assertEqual(article.snippet, "(empty yet...)")

@@ -21,11 +21,11 @@ class Article(models.Model):
     def __str__(self) -> str:
         return self.title
 
+    @property
     def snippet(self) -> str:
-        try:  # will have issue if content is NULL
+        if self.content:
             return self.content[:50] + '...'
-        except TypeError:
-            return "(empty yet)"
+        return '(empty yet...)'
 
     def get_absolute_url(self) -> str:
         return reverse('article-detail', kwargs={'id': self.id, 'slug': self.slug})
