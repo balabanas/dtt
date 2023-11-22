@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 from django.utils.text import slugify
 
 
@@ -32,6 +33,9 @@ class Article(models.Model):
         while Article.objects.filter(slug=self.slug).exclude(id=self.id).exists():
             self.slug += "-"  # altering slug until it is unique
         super().save(*args, **kwargs)
+
+    def get_absolute_url(self) -> str:
+        return reverse('article-detail', kwargs={'id': self.id, 'slug': self.slug})
 
 
 class ContactRequest(models.Model):
