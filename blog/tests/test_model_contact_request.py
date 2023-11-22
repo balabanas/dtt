@@ -16,18 +16,6 @@ class ContactRequestTestCase(TestCase):
         self.assertEqual("My Name", contact_request.name)
         self.assertEqual("my@test.com", contact_request.email)
 
-    def test_contact_request_name_required(self) -> None:
-        cr1: ContactRequest = ContactRequest(name="  ", email="my@test.com", content="test content")
-        cr2: ContactRequest = ContactRequest(email="my@test.com", content="test content")
-        with self.assertRaises(ValidationError) as error1:
-            cr1.full_clean()
-        with self.assertRaises(ValidationError) as error2:
-            cr2.full_clean()
-        msg1: str = error1.exception.message_dict['name'][0]
-        msg2: str = error2.exception.message_dict['name'][0]
-        self.assertTrue(all(word in msg1 for word in ['empty', 'blanks']))
-        self.assertTrue(all(word in msg2 for word in ['cannot', 'blank']))
-
     def test_contact_request_name_max_length(self) -> None:
         cr: ContactRequest = ContactRequest(name="My Name" * 100, email="my@test.com", content="test content")
         with self.assertRaises(ValidationError) as error:
