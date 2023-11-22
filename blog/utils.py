@@ -26,8 +26,8 @@ def populate_dev_db_with_test_user_and_articles():
         a = Article.objects.create(title=title, slug=slug, content=content, online=online, pub_dttm=pub_dttm,
                                    author=user)
         a.pub_dttm = pub_dttm
-        if i % 7 == 0:  # create some articles with NULL content
-            a.content = None
+        if i % 7 == 0:  # create some articles with empty content
+            a.content = ""
         a.save()
     print("22 Articles were created. Enjoy.")
 

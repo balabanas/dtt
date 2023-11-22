@@ -13,7 +13,7 @@ def validate_charfield_not_empty(value: str):
 class Article(models.Model):
     title = models.CharField(max_length=100, blank=False, validators=[validate_charfield_not_empty])
     slug = models.SlugField()
-    content = models.TextField(null=True, blank=True)
+    content = models.TextField(blank=True)
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     pub_dttm = models.DateTimeField(auto_now_add=True)
     online = models.BooleanField(default=False)
