@@ -34,7 +34,7 @@ class Article(models.Model):
 class ContactRequest(models.Model):
     name = models.CharField(max_length=100, blank=False, validators=[validate_charfield_not_empty])
     email = models.EmailField(blank=False)
-    content = models.TextField(blank=False, validators=[validate_charfield_not_empty])
+    content = models.TextField()
     pub_dttm = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

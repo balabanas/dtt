@@ -42,18 +42,6 @@ class ContactRequestTestCase(TestCase):
         msg: str = error.exception.message_dict['email'][0]
         self.assertTrue(all(word in msg for word in ['cannot', 'blank']))
 
-    def test_contact_request_content_required(self) -> None:
-        cr1: ContactRequest = ContactRequest(name="My Name", email="my@test.com", content="  ")
-        cr2: ContactRequest = ContactRequest(name="My Name", email="my@test.com")
-        with self.assertRaises(ValidationError) as error1:
-            cr1.full_clean()
-        with self.assertRaises(ValidationError) as error2:
-            cr2.full_clean()
-        msg1: str = error1.exception.message_dict['content'][0]
-        msg2: str = error2.exception.message_dict['content'][0]
-        self.assertTrue(all(word in msg1 for word in ['empty', 'blanks']))
-        self.assertTrue(all(word in msg2 for word in ['cannot', 'blank']))
-
     def test_contact_request_email_validation(self) -> None:
         cr: ContactRequest = ContactRequest(name="My Name", email="mytest.com", content="test content")
         with self.assertRaises(ValidationError) as error:
