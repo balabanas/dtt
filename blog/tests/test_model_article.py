@@ -46,18 +46,6 @@ class ArticleTestCase(TestCase):
         with self.assertRaises(IntegrityError):
             Article.objects.create(title="Article With No User Specified", slug="test-title", content="test content")
 
-    def test_article_title_required(self):
-        a1: Article = Article(title="  ", content="just content", author=self.user)
-        a2: Article = Article(content="just content", author=self.user)
-        with self.assertRaises(ValidationError) as error1:
-            a1.full_clean()
-        with self.assertRaises(ValidationError) as error2:
-            a2.full_clean()
-        msg1: str = error1.exception.message_dict['title'][0]
-        msg2: str = error2.exception.message_dict['title'][0]
-        self.assertTrue(all(word in msg1 for word in ['empty', 'blanks']))
-        self.assertTrue(all(word in msg2 for word in ['cannot', 'blank']))
-
     def test_article_title_max_length(self):
         a: Article = Article(title="test title" * 100, slug="test-title", content="test content", author=self.user)
         with self.assertRaises(ValidationError) as error:
