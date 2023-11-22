@@ -46,11 +46,6 @@ class ArticleTestCase(TestCase):
         with self.assertRaises(IntegrityError):
             Article.objects.create(title="Article With No User Specified", slug="test-title", content="test content")
 
-    def test_article_slug_created_automatically(self):
-        article = Article.objects.create(title="just title", content="just content", author=self.user)
-        article.save()
-        self.assertEqual("just-title", article.slug)
-
     def test_article_title_required(self):
         a1: Article = Article(title="  ", content="just content", author=self.user)
         a2: Article = Article(content="just content", author=self.user)

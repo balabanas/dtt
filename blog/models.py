@@ -27,11 +27,6 @@ class Article(models.Model):
         except TypeError:
             return "(empty yet)"
 
-    def save(self, *args, **kwargs) -> None:
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
-
     def get_absolute_url(self) -> str:
         return reverse('article-detail', kwargs={'id': self.id, 'slug': self.slug})
 
