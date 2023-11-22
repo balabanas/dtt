@@ -1,13 +1,6 @@
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-
-
-def validate_charfield_not_empty(value: str):
-    if value.strip() == "":
-        raise ValidationError("This field cannot be empty or blanks-only")
-    return value
 
 
 class Article(models.Model):

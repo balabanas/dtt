@@ -27,14 +27,12 @@ class Migration(migrations.Migration):
                     "name",
                     models.CharField(
                         max_length=100,
-                        validators=[blog.models.validate_charfield_not_empty],
                     ),
                 ),
                 ("email", models.EmailField(max_length=254)),
                 (
                     "content",
                     models.TextField(
-                        validators=[blog.models.validate_charfield_not_empty]
                     ),
                 ),
                 ("pub_dttm", models.DateTimeField(auto_now_add=True)),

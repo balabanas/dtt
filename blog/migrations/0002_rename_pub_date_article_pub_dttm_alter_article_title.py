@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             model_name="article",
             name="title",
             field=models.CharField(
-                max_length=100, validators=[blog.models.validate_charfield_not_empty]
+                max_length=100,
             ),
         ),
     ]
