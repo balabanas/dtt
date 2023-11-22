@@ -7,7 +7,7 @@ from django.test import TestCase
 from blog.models import Article
 
 
-class ArticleTestCase(TestCase):
+class ArticleTest(TestCase):
     def setUp(self) -> None:
         self.user: User = User.objects.create_user('testuser')
         self.article: Article = Article.objects.create(title='Test Article', slug='test-article',

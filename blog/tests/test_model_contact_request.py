@@ -6,7 +6,7 @@ from django.test import TestCase
 from blog.models import ContactRequest
 
 
-class ContactRequestTestCase(TestCase):
+class ContactRequestTest(TestCase):
     def setUp(self) -> None:
         self.contact_request: ContactRequest = ContactRequest.objects.create(name="My Name", email="my@test.com",
                                                                              content="test content")

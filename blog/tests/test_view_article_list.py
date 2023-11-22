@@ -7,7 +7,7 @@ from blog.models import Article
 from blog.views import ArticleListView
 
 
-class TestArticleListView(TestCase):
+class ArticleListViewTest(TestCase):
     def setUp(self) -> None:
         self.user: User = User.objects.create(username="testuser")
         Article.objects.create(title="Offline test title", slug="test-title", content="test content",
@@ -34,7 +34,7 @@ class TestArticleListView(TestCase):
         self.assertRedirects(response, '/blog/', status_code=301, target_status_code=200)
 
 
-class ArticlePaginationTestCase(TestCase):
+class ArticlePaginationTest(TestCase):
     def setUp(self) -> None:
         user = User.objects.create(username="testuser", password="12345")
         for i in range(14):

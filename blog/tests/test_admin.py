@@ -7,7 +7,7 @@ from blog.admin import ContactRequestAdmin
 from blog.models import ContactRequest
 
 
-class ContactRequestAdminTestCase(TestCase):
+class ContactRequestAdminTest(TestCase):
     def setUp(self) -> None:
         self.user: User = User.objects.create_user(username='test_admin', is_superuser=True)  # by default - can edit
         self.factory: RequestFactory = RequestFactory()

@@ -5,7 +5,7 @@ from django.test import TestCase
 from blog.models import Article
 
 
-class TestArticleDetailView(TestCase):
+class ArticleDetailViewTest(TestCase):
     def setUp(self) -> None:
         self.user: User = User.objects.create(username="testuser")
         self.fullname_user: User = User.objects.create(username="testuser2", first_name="Name", last_name="Lastname")
