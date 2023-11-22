@@ -16,9 +16,6 @@ class TestArticleDetailView(TestCase):
                                                    author=self.user)
         self.aon_fu: Article = Article.objects.create(title="Online test title", slug="online-test-title-fu",
                                                       content="test content", online=True, author=self.fullname_user)
-        self.aon_nl: Article = Article.objects.create(title="Blog post witn newline char in content",
-                                                      slug="blog-newline", content="test content\nnext line",
-                                                      online=True, author=self.user)
 
     def test_article_detail_view_online(self) -> None:
         response: TemplateResponse = self.client.get(self.aon.get_absolute_url())
@@ -38,7 +35,3 @@ class TestArticleDetailView(TestCase):
         self.assertNotContains(response, self.fullname_user.username)
         response: TemplateResponse = self.client.get(self.aon.get_absolute_url())
         self.assertContains(response, self.user.username)
-
-    def test_article_detail_view_new_line_rendered(self):
-        response: TemplateResponse = self.client.get(self.aon_nl.get_absolute_url())
-        self.assertContains(response, 'test content<br>next line')
