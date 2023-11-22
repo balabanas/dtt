@@ -11,7 +11,7 @@ class Article(models.Model):
     online = models.BooleanField(default=False)
 
     def __str__(self) -> str:
-        return self.title
+        return str(self.title)
 
     @property
     def snippet(self) -> str:
