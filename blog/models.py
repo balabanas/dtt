@@ -33,7 +33,7 @@ class Article(models.Model):
 
 class ContactRequest(models.Model):
     name = models.CharField(max_length=100)
-    email = models.EmailField(blank=False)
+    email = models.EmailField()
     content = models.TextField()
     pub_dttm = models.DateTimeField(auto_now_add=True)
 
