@@ -16,19 +16,19 @@ from blog.models import Article
 
 
 def populate_dev_db_with_test_user_and_articles():
-    user = User.objects.create(username="dev_user_auto", password="12345")
+    user = User.objects.create(username="dev_user_auto")
     for i in range(22):
-        title = "Article Title " + str(i)
-        slug = "article-title-" + str(i)
-        content = "Article content. This might be lengthy - " + str(i)
+        title = f"Article Title {i + 1}"
+        slug = f"article-title-{i + 1}"
+        content = f"Article content. This might be lengthy - {i + 1}"
         online = random.choice([True, False])
         pub_dttm = datetime.datetime.now() - datetime.timedelta(days=random.randint(0, 100))
-        a = Article.objects.create(title=title, slug=slug, content=content, online=online, pub_dttm=pub_dttm,
-                                   author=user)
-        a.pub_dttm = pub_dttm
-        if i % 7 == 0:  # create some articles with NULL content
-            a.content = None
-        a.save()
+        article = Article(title=title, slug=slug, content=content, online=online, pub_dttm=pub_dttm, author=user)
+        article.pub_dttm = pub_dttm
+        if i % 7 == 0:  # create some articles with empty content
+            article.content = ""
+        article.full_clean()
+        article.save()
     print("22 Articles were created. Enjoy.")
 
 

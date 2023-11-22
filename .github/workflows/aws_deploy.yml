@@ -45,6 +45,7 @@ jobs:
           echo 'Current code copied'
           
           ssh ec2 'echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > /home/ec2-user/.env'
+          ssh ec2 'echo "DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }}" >> /home/ec2-user/.env'
           ssh ec2 'echo "ALLOWED_HOSTS=${{ github.event.inputs.ec2_ip }}" >> /home/ec2-user/.env'
           ssh ec2 'echo "EMAIL_HOST=${{ secrets.EMAIL_HOST }}" >> /home/ec2-user/.env'
           ssh ec2 'echo "EMAIL_PORT=${{ secrets.EMAIL_PORT }}" >> /home/ec2-user/.env'
