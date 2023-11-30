@@ -27,6 +27,10 @@ DEBUG = bool(int(os.getenv('DJANGO_DEBUG')))
 allowed_hosts = os.getenv('ALLOWED_HOSTS')
 ALLOWED_HOSTS = ['localhost', allowed_hosts]
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 # Application definition
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -47,6 +51,15 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+if DEBUG:
+    INSTALLED_APPS += [
+        "debug_toolbar",
+    ]
+    MIDDLEWARE += [
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
+    ]
+
 
 ROOT_URLCONF = "dtt.urls"
 
