@@ -14,7 +14,7 @@ class ArticleListView(ListView):
     template_name = 'blog/article_list.html'
     context_object_name = 'articles'
     paginate_by = ARTICLE_PAGINATION_SIZE
-    queryset = Article.objects.filter(online=True).order_by('-pub_dttm')
+    queryset = Article.objects.filter(online=True).select_related('author').order_by('-pub_dttm')
 
 
 class ArticleDetailView(DetailView):
